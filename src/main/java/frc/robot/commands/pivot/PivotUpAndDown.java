@@ -1,8 +1,9 @@
 package frc.robot.commands.pivot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.intake.IntakeRollerSpeakerShootCommand;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
@@ -15,20 +16,38 @@ public class PivotUpAndDown extends Command{
     private FeederSubsystem feederSubsystem;
     private IntakeSubsystem intakeSubsystem;
 
-    public PivotUpAndDown(PivotSubsystem pivotSubsystem, VisionSubsystem visionSubsystem) {
+    private Timer timer = new Timer();
+
+    public PivotUpAndDown(PivotSubsystem pivotSubsystem, VisionSubsystem visionSubsystem, FeederSubsystem feederSubsystem, IntakeSubsystem intakeSubsystem) {
         this.pivotSubsystem = pivotSubsystem;
         this.visionSubsytem = visionSubsystem;
+        this.feederSubsystem = feederSubsystem;
+        this.intakeSubsystem = intakeSubsystem;
+        
+        addRequirements(pivotSubsystem, visionSubsystem, intakeSubsystem, feederSubsystem);
+    }
 
-        if(visionSubsystem.getTargetDistance()>=400 && visionSubsystem.getTargetDistance()<=500 ) {
+    @Override 
+    public void initialize() {
+        timer.reset();
+    }
+
+    @Override 
+    public void execute() {
+        double TargetDistance = visionSubsytem.getTargetDistance();
+
+        if(TargetDistance >= 400 && TargetDistance <= 500 ) {
             pivotSubsystem.setDistance(-1);
-            new ParallelCommandGroup(
-                intakeSubsystem.intakeShoot(0.5);
-                
-            );
-        } else if(visionSubsystem.getTargetDistance()>=400 && visionSubsystem.getTargetDistance()<=500 ) {
-            pivotSubsystem.setDistance(-1);
-        } else if(visionSubsystem.getTargetDistance()>=400 && visionSubsystem.getTargetDistance()<=500 ) {
-            pivotSubsystem.setDistance(-1);
+            intakeSubsystem.intakeOn(0.6);
+            
+        } else if (TargetDistance >=400 && TargetDistance <=500 ) {
+            pivotSubsystem.setDistance(-3);
+            intakeSubsystem.intakeOn(0.5);
+        } else if (TargetDistance >=400 && TargetDistance <=500 ) {
+            pivotSubsystem.setDistance(-5);
+            tem.intakeOn(0.4);
+        } else {
+            
         }
     }
     
