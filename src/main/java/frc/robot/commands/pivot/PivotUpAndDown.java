@@ -1,9 +1,6 @@
 package frc.robot.commands.pivot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.commands.intake.IntakeRollerSpeakerShootCommand;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
@@ -36,7 +33,7 @@ public class PivotUpAndDown extends Command{
         double TargetDistance = visionSubsytem.getTargetDistance();
 
         if(TargetDistance >= 400 && TargetDistance <= 500 ) {
-            pivotSubsystem.setDistance(-1);
+            pivotSubsystem.setDistance(-5);
             intakeSubsystem.intakeOn(0.6);
             try {
                 Thread.sleep(2000);
@@ -55,7 +52,7 @@ public class PivotUpAndDown extends Command{
             }
             feederSubsystem.feedOn(0.6);
         } else if (TargetDistance >= 200 && TargetDistance < 300 ) {
-            pivotSubsystem.setDistance(-5);
+            pivotSubsystem.setDistance(-2);
             intakeSubsystem.intakeOn(0.4);
             try {
                 Thread.sleep(2000);
@@ -64,7 +61,7 @@ public class PivotUpAndDown extends Command{
             }
             feederSubsystem.feedOn(0.5);
         } else if (TargetDistance >= 100 && TargetDistance < 200) {
-            pivotSubsystem.setDistance(-5);
+            pivotSubsystem.setDistance(-1);
             intakeSubsystem.intakeOn(0.4);
             try {
                 Thread.sleep(2000);
@@ -73,7 +70,7 @@ public class PivotUpAndDown extends Command{
             }
             feederSubsystem.feedOn(0.4);
         } else if (TargetDistance >= 10 && TargetDistance < 100) {
-            pivotSubsystem.setDistance(-5);
+            pivotSubsystem.setDistance(-1);
             intakeSubsystem.intakeOn(0.4);
             try {
                 Thread.sleep(2000);

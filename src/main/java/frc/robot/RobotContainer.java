@@ -18,9 +18,7 @@ import frc.robot.commands.intake.IntakeFeedShootCommand;
 import frc.robot.commands.intake.IntakeOnCommand;
 import frc.robot.commands.intake.IntakeRollerSpeakerShootCommand;
 import frc.robot.commands.intake.IntakeTrapShootCommand;
-import frc.robot.commands.pivot.PivotDownCommand;
 import frc.robot.commands.pivot.PivotUpAndDown;
-import frc.robot.commands.pivot.PivotUpCommand;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.ElevatorSubsystem.ElevatorPositions;
 import frc.robot.subsystems.PivotSubsystem.PivotPosition;
@@ -58,7 +56,7 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
 
-    private final VisionSubsystem limelight = new VisionSubsystem();
+    // private final VisionSubsystem limelight = new VisionSubsystem();
     private final JoystickButton intakeon = new JoystickButton(operator, 4);
     private final JoystickButton intakeshootroll = new JoystickButton(operator, 3);
     private final JoystickButton intakeshootfeed = new JoystickButton(operator, 5);
