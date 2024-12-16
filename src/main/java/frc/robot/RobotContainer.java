@@ -19,6 +19,7 @@ import frc.robot.commands.intake.IntakeOnCommand;
 import frc.robot.commands.intake.IntakeRollerSpeakerShootCommand;
 import frc.robot.commands.intake.IntakeTrapShootCommand;
 import frc.robot.commands.pivot.PivotDownCommand;
+import frc.robot.commands.pivot.PivotUpAndDown;
 import frc.robot.commands.pivot.PivotUpCommand;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.ElevatorSubsystem.ElevatorPositions;
@@ -74,12 +75,15 @@ public class RobotContainer {
     private final POVButton pivotamp = new POVButton(operator, 90);
     private final POVButton pivotintake = new POVButton(operator, 180);
 
+    private final JoystickButton autoPivot = new JoystickButton(operator, 1);
+
 
     /* Subsystems */ 
     private final IntakeSubsystem intake = new IntakeSubsystem();
     private final FeederSubsystem feeder = new FeederSubsystem();
     private final PivotSubsystem pivot = new PivotSubsystem();
     private final ElevatorSubsystem elevator = new ElevatorSubsystem();
+    private final VisionSubsystem vision = new VisionSubsystem();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -125,6 +129,8 @@ public class RobotContainer {
         pivotzero.onTrue(new AutoLifterCommand(pivot, elevator, PivotPosition.CLOSE, ElevatorPositions.BASE));
         pivotamp.onTrue(new AutoLifterCommand(pivot, elevator, PivotPosition.SHOOTAMP, ElevatorPositions.SHOOTAMP));
         pivotintake.onTrue(new AutoLifterCommand(pivot, elevator, PivotPosition.INTAKE, ElevatorPositions.BASE));
+
+        autoPivot.toggleOnTrue(new PivotUpAndDown(pivot, vision, feeder, intake));
     }
 
     /**

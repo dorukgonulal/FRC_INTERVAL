@@ -16,20 +16,19 @@ public class PivotUpAndDown extends Command{
     private FeederSubsystem feederSubsystem;
     private IntakeSubsystem intakeSubsystem;
 
-    private Timer timer = new Timer();
-
     public PivotUpAndDown(PivotSubsystem pivotSubsystem, VisionSubsystem visionSubsystem, FeederSubsystem feederSubsystem, IntakeSubsystem intakeSubsystem) {
         this.pivotSubsystem = pivotSubsystem;
         this.visionSubsytem = visionSubsystem;
         this.feederSubsystem = feederSubsystem;
         this.intakeSubsystem = intakeSubsystem;
+
         
         addRequirements(pivotSubsystem, visionSubsystem, intakeSubsystem, feederSubsystem);
     }
-
-    @Override 
+    
+    @Override
     public void initialize() {
-        timer.reset();
+        pivotSubsystem.resetEncoder();
     }
 
     @Override 
@@ -39,15 +38,52 @@ public class PivotUpAndDown extends Command{
         if(TargetDistance >= 400 && TargetDistance <= 500 ) {
             pivotSubsystem.setDistance(-1);
             intakeSubsystem.intakeOn(0.6);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            feederSubsystem.feedOn(0.7);
             
-        } else if (TargetDistance >=400 && TargetDistance <=500 ) {
+        } else if (TargetDistance >= 300 && TargetDistance < 400 ) {
             pivotSubsystem.setDistance(-3);
             intakeSubsystem.intakeOn(0.5);
-        } else if (TargetDistance >=400 && TargetDistance <=500 ) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            feederSubsystem.feedOn(0.6);
+        } else if (TargetDistance >= 200 && TargetDistance < 300 ) {
             pivotSubsystem.setDistance(-5);
-            tem.intakeOn(0.4);
+            intakeSubsystem.intakeOn(0.4);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            feederSubsystem.feedOn(0.5);
+        } else if (TargetDistance >= 100 && TargetDistance < 200) {
+            pivotSubsystem.setDistance(-5);
+            intakeSubsystem.intakeOn(0.4);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            feederSubsystem.feedOn(0.4);
+        } else if (TargetDistance >= 10 && TargetDistance < 100) {
+            pivotSubsystem.setDistance(-5);
+            intakeSubsystem.intakeOn(0.4);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            feederSubsystem.feedOn(0.4);
         } else {
-            
+            double lastAngle = pivotSubsystem.getEncoderPosition();
+            pivotSubsystem.setDistance(-lastAngle);
         }
     }
     
